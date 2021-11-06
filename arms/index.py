@@ -32,7 +32,7 @@ def sendKeepAlive():
         "operational_system_processor": platform.processor(),
         "general": platform.uname(),
     }
-    return requests.post(url= f"{brain}/transaction_result", data=json.dumps(data_payload), headers={'content-type': 'application/json'})
+    return requests.post(url= f"{brain}/keep_alive", data=json.dumps(data_payload), headers={'content-type': 'application/json'})
 
 
 while True:
