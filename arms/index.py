@@ -10,8 +10,8 @@ import json
 #########################################################################################
 brain = 'http://localhost:5000'
 interval_send_information = 2
-
-
+name_of_arm = "John Pc"
+description_of_arm = "Pc Of John"
 
 
 
@@ -20,6 +20,14 @@ interval_send_information = 2
 #########################################################################################
 # APPLICATION
 #########################################################################################
+
+def registerArmToBrain():
+    data_payload = {
+        "name":name_of_arm,
+        "description": description_of_arm
+    }
+    return requests.post(url= f"{brain}/arms", data=json.dumps(data_payload), headers={'content-type': 'application/json'})
+
 
 def getOrderMonitoring():
     return requests.get(f"{brain}/order")
@@ -39,9 +47,14 @@ while True:
     time.sleep(interval_send_information)
 
     try:
-        order = getOrderMonitoring().json()
+        registerArmToBrain()
     except:
-        print("Erro to get order")
+        print("Error to register Arm")
+        
+    #try:
+    #    order = getOrderMonitoring().json()
+    #except:
+    #    print("Erro to get order")
 
-    if order['keep_alive'] == True:
-        sendKeepAlive()
+    #if order['keep_alive'] == True:
+     #   sendKeepAlive()
